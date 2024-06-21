@@ -4,8 +4,9 @@
 	import CustomThemeModal from "./CustomTheme.svelte";
 
 	import {user} from "../../stores.js";
-	import {removeTheme} from "../../CustomTheme.js";
+	import {removeTheme, stringToTheme} from "../../CustomTheme.js";
 	import * as modals from "../../modals.js";
+	import ThemePreview from "../../ThemePreview.svelte";
 	import * as clm from "../../clmanager.js";
 
 	import defaultPreview from "../../../assets/themePreviews/OrangeLight.png";
@@ -18,7 +19,11 @@
 		}
 	);
 
-	let selections = ["orange", "dark-orange", "blue", "dark-blue", "custom"];
+	let selections = ["orange", "dark-orange", "blue", "dark-blue",
+		`cb:Purple testing theme #01;{"v":1,"orange":"#7739f7","orangeLight":"#9c5eff","orangeDark":"#5214d2","background":"#ffffff","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`
+	];
+
+	selections.push("custom")
 
 	let error = false;
 
@@ -103,6 +108,9 @@
 					<button on:click={() => modals.showModal(CustomThemeModal)}
 						>Edit theme</button
 					>
+				{:else if theme.startsWith("cb:")}
+					<div class="theme-name">{theme.replace("cb:","").split(";")[0]}</div>
+					<ThemePreview theme={stringToTheme(theme.replace("cb:","").split(";")[1])} size={0.35}/>
 				{:else}
 					<div class="theme-name">
 						{themeCaps + " (" + darkModeStr + ")"}

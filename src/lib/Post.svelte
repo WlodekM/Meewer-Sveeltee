@@ -310,16 +310,6 @@
 </script>
 
 <Container>
-	{#if post.content.search(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i) != -1}
-		<ReplyPost
-			post={(post.content
-				.split(" ")
-				.splice(1, 1)[0]
-				.replace("[", "")
-				.replace("]", ""))}
-		/>
-		<br>
-	{/if}
 	<div class="post-header">
 		{#if buttons}
 			<div class="settings-controls">
@@ -578,6 +568,16 @@
 			{/if}
 		</div>
 	</div>
+	{#if post.content.search(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i) != -1}
+		<ReplyPost
+			post={(post.content
+				.split(" ")
+				.splice(1, 1)[0]
+				.replace("[", "")
+				.replace("]", ""))}
+		/>
+		<br>
+	{/if}
 	{#if editing}
 		<textarea
 			type="text"

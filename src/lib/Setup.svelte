@@ -440,7 +440,7 @@
 
 <style>
 	.setup {
-		background-color: var(--orange);
+		background-color: var(--background);
 		color: var(--foreground-orange);
 		font-size: 150%;
 

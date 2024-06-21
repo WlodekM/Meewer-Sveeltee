@@ -615,7 +615,6 @@
 								removePost={() =>
 									(items = items.filter(v => v.id !== post.id))}
 							/>
-							<br>
 						{/if}
 					</div>
 				{/each}
