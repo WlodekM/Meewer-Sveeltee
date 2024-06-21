@@ -8,7 +8,7 @@
 	import Contributor from "../lib/Contributor.svelte";
 
 	const REPO_OWNER = "WlodekM";
-	const REPO_NAME = "Meower-F-Client-Rewritten";
+	const REPO_NAME = "Meewer-Sveeltee";
 
 	async function fetchContributors() {
 		const res = await fetch(
@@ -21,12 +21,12 @@
 		}
 		const json = await res.json();
 
-		const shuffled = [];
-		while (json.length > 0) {
-			const index = Math.floor(Math.random() * json.length);
-			shuffled.push(json[index]);
-			json.splice(index, 1);
-		}
+		const shuffled = json.sort((a, b) => a.contributions - b.contributions);
+		// while (json.length > 0) {
+		// 	const index = Math.floor(Math.random() * json.length);
+		// 	shuffled.push(json[index]);
+		// 	json.splice(index, 1);
+		// }
 		return shuffled;
 	}
 </script>
@@ -60,7 +60,7 @@
 </Container>
 <Container>
 	<h2>Client Contributors</h2>
-	<p>(This list uses GitHub usernames/PFPs and the order is randomized.)</p>
+	<p>(This list uses GitHub usernames/PFPs.)</p>
 	{#await fetchContributors()}
 		<Loading />
 	{:then contributors}
@@ -100,6 +100,14 @@
 </Container>
 <Container>
 	<h2>Changelog</h2>
+	<Container>
+		<h2>1.69c</h2>
+		<ul>
+			<li>
+				Updated about page
+			</li>
+		</ul>
+	</Container>
 	<Container>
 		<h2>1.69b</h2>
 		<ul>

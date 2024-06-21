@@ -4,6 +4,7 @@ const app = express()
 const port = 5173
 
 app.get("*", (req, res, next) => {
+	console.log(`GET ${req.path}`)
 	if(req.path.startsWith("/assets")) return next();
 	res.send(fs.readFileSync("dist/index.html").toString())
 })
