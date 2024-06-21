@@ -309,7 +309,7 @@
 		webhook;
 </script>
 
-<!-- <Container> -->
+<Container>
 	{#if post.content.search(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i) != -1}
 		<ReplyPost
 			post={(post.content
@@ -685,7 +685,7 @@
 			{/each}
 		</div>
 	{/if}
-<!-- </Container> -->
+</Container>
 
 <style>
 	.pfp {

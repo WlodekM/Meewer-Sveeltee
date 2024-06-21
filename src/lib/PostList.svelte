@@ -528,7 +528,7 @@
 	{#if postOrigin}
 		<TypingIndicator forPage={postOrigin} />
 	{/if}
-	<div style="padding: 0.6em;">
+	<!-- <div style="padding: 0.6em;"> -->
 		<PagedList maxItems={100} bind:items {loadPage} bind:this={list}>
 			<svelte:fragment slot="loaded" let:items={_items}>
 				{#each _items as post (post.id)}
@@ -639,7 +639,7 @@
 			</slot>
 		</PagedList>
 	</div>
-</div>
+<!-- </div> -->
 
 <style>
 	.createpost {

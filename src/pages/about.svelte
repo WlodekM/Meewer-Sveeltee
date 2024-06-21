@@ -101,6 +101,14 @@
 <Container>
 	<h2>Changelog</h2>
 	<Container>
+		<h2>1.69e</h2>
+		<ul>
+			<li>
+				Reverted back to containered posts
+			</li>
+		</ul>
+	</Container>
+	<Container>
 		<h2>1.69d</h2>
 		<ul>
 			<li>
