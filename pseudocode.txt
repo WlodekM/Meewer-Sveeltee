@@ -1,0 +1,58 @@
+ws://159.224.173.169:3001
+
+ws connekt
+>>
+{
+  "cmd": "direct",
+  "val": {
+    "cmd": "authpswd",
+    "val": {
+      "username": "name here",
+      "pswd": "password here"
+    }
+  }
+}
+<<
+{
+  "cmd": "direct",
+  "val": {
+    "mode": "auth",
+    "payload": {
+      "username": "username",
+      "token": "api token",
+      "account": {... account data her},
+      "relationships": []
+    }
+  },
+  "listener": "listener_8076088" // igonor this
+}
+---
+API GET /home?autoget=1&page=1
+{
+  "autoget": [
+    {
+      "_id": "post id here",
+      "attachments": [],
+      "isDeleted": false,
+      "p": "post content here",
+      "pinned": false,
+      "post_id": "post id here too for some reason",
+      "post_origin": "home",
+      "t": {
+        "d": "20",
+        "e": 1718878615, // unix time
+        "h": "13",
+        "mi": "16",
+        "mo": "06",
+        "s": "55",
+        "y": "2024"
+      },
+      "type": 1,
+      "u": "user"
+    },
+	...
+  ],
+  "error": false,
+  "page#": 1,
+  "pages": 3
+}

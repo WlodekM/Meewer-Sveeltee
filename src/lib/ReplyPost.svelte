@@ -7,7 +7,7 @@
 	export let post;
 </script>
 
-<!-- <Container> -->
+<Container>
     {#await fetch(`${apiUrl}posts?id=${post}`).then(res => res.json())}
         <span class="loading">
             <span class="circle circle1"></span>
@@ -36,7 +36,7 @@
                     size={0.3}
                 />
             {/await}
-            <span class="gray-text">
+            <span>
                 <b>{info.p.split(": ")[0]}</b>
                 {info.p.slice(info.p.indexOf(": ") + 1)}
             </span>
@@ -56,26 +56,20 @@
                     size={0.3}
                 />
             {/await}
-            <span class="gray-text">
+            <span>
                 <b>{info.u}</b>
                 {info.p.split(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i).join(" ")}
             </span>
         {/if}
     {:catch error}
-        <span class="dark-red-text">
+        <span>
             <b>Error fetching post:</b>
             <code>{error}</code>
         </span>
     {/await}
-<!-- </Container> -->
+</Container>
 
 <style>
-	.gray-text {
-		color: #ffffff66
-	}
-	.dark-red-text {
-		color: #ff111166
-	}
 	.loading {
 		align-items: center;
 		display: flex;
