@@ -1,5 +1,5 @@
-/* 
-	Common CSS (CSS thats used all around meower) 
+/*
+	Common CSS (CSS thats used all around meower)
 	(And the nojs screen is here too)
 */
 
@@ -281,6 +281,11 @@ button.plus {
 button.reply {
 	background-image: url("./reply.svg");
 	background-size: 70%;
+}
+
+button.at, button.email, button.mention {
+	background-image: url("./mention.svg");
+	background-size: 50%;
 }
 
 button.pen {

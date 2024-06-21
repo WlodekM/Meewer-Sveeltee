@@ -5,6 +5,7 @@
 	import FormattedDate from "./FormattedDate.svelte";
 	import Badge from "./Badge.svelte";
 	import LiText from "./LiText.svelte";
+	import ReplyPost from "./ReplyPost.svelte";
 	import Attachment from "./Attachment.svelte";
 
 	import ConfirmHyperlinkModal from "./modals/ConfirmHyperlink.svelte";
@@ -164,6 +165,7 @@
 			const tokens = md.parse(
 				content
 					.replaceAll(/\[([^\]]+?): (https:\/\/[^\]]+?)\]/gs, "")
+					.split(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i).join(" ")
 					.replaceAll(/\*\*\*\*/gs, "\\*\\*\\*\\*"),
 				{}
 			);
@@ -307,7 +309,17 @@
 		webhook;
 </script>
 
-<Container>
+<!-- <Container> -->
+	{#if post.content.search(/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i) != -1}
+		<ReplyPost
+			post={(post.content
+				.split(" ")
+				.splice(1, 1)[0]
+				.replace("[", "")
+				.replace("]", ""))}
+		/>
+		<br>
+	{/if}
 	<div class="post-header">
 		{#if buttons}
 			<div class="settings-controls">
@@ -376,6 +388,26 @@
 						{/if}
 						<button
 							class="circle reply"
+							on:click={() => {
+								let existingText = input.value;
+
+								const mentionRegex =
+									/^@\w+\s\[\w+-\w+-\w+-\w+-\w+\]\s*/i;
+								const mention = `@${post.user} [${post.post_id}] `;
+
+								if (mentionRegex.test(existingText)) {
+									input.value = existingText
+										.trim()
+										.replace(mentionRegex, mention);
+								} else {
+									input.value = mention + existingText.trim();
+								}
+
+								input.focus();
+							}}
+						/>
+						<button
+							class="circle mention"
 							on:click={() => {
 								let existingText = input.value;
 
@@ -653,7 +685,7 @@
 			{/each}
 		</div>
 	{/if}
-</Container>
+<!-- </Container> -->
 
 <style>
 	.pfp {

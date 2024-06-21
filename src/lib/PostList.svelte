@@ -103,6 +103,43 @@
 	export let items = [];
 	let firstLoad = true;
 
+	// function combinePosts(posts) {
+	// 	console.log(posts)
+	// 	return posts;
+	// }
+
+	// unused
+	function combinePosts(posts) {
+		// Use a Map to store aggregated posts by user
+		let aggregatedMap = new Map();
+
+		// Iterate through each post
+		posts.forEach(post => {
+			// Extract user and content from the post
+			const { user, content, ...rest } = post;
+
+			// Check if user already exists in aggregatedMap, if not, initialize with empty content and preserve other keys
+			if (!aggregatedMap.has(user)) {
+				aggregatedMap.set(user, {
+					user: user,
+					content: '',
+					...rest  // Preserve other keys/values
+				});
+			}
+
+			// Append current post content to existing content, separated by newline
+			const aggregatedPost = aggregatedMap.get(user);
+			aggregatedPost.content += (aggregatedPost.content === '' ? '' : '\n') + content;
+			aggregatedMap.set(user, aggregatedPost);
+		});
+
+		// Convert aggregatedMap into an array of objects
+		let result = Array.from(aggregatedMap.values());
+
+		return result;
+	}
+
+
 	/**
 	 * Loads a page.
 	 * @param {number} page
@@ -491,114 +528,117 @@
 	{#if postOrigin}
 		<TypingIndicator forPage={postOrigin} />
 	{/if}
-	<PagedList maxItems={100} bind:items {loadPage} bind:this={list}>
-		<svelte:fragment slot="loaded" let:items={_items}>
-			{#each _items as post (post.id)}
-				<div class="item">
-					{#if "lower_username" in post}
-						<ProfileView
-							profile={post}
-							small={true}
-							canClick={true}
-							canDoActions={!addToChat}
-						/>
-						{#if addToChat && !$chat.members.includes(post._id)}
-							<div class="settings-controls">
-								<button
-									class="circle add"
-									title="Add to chat"
-									disabled={addToChatLoading[post._id]}
-									on:click={async () => {
-										addToChatLoading[post._id] = true;
-										try {
-											const resp = await fetch(
-												`${apiUrl}${
-													$params.admin
-														? "admin/"
-														: ""
-												}chats/${$chat._id}/members/${
-													post._id
-												}`,
-												{
-													method: "PUT",
-													headers: $authHeader,
+	<div style="padding: 0.6em;">
+		<PagedList maxItems={100} bind:items {loadPage} bind:this={list}>
+			<svelte:fragment slot="loaded" let:items={_items}>
+				{#each _items as post (post.id)}
+					<div class="item">
+						{#if "lower_username" in post}
+							<ProfileView
+								profile={post}
+								small={true}
+								canClick={true}
+								canDoActions={!addToChat}
+							/>
+							{#if addToChat && !$chat.members.includes(post._id)}
+								<div class="settings-controls">
+									<button
+										class="circle add"
+										title="Add to chat"
+										disabled={addToChatLoading[post._id]}
+										on:click={async () => {
+											addToChatLoading[post._id] = true;
+											try {
+												const resp = await fetch(
+													`${apiUrl}${
+														$params.admin
+															? "admin/"
+															: ""
+													}chats/${$chat._id}/members/${
+														post._id
+													}`,
+													{
+														method: "PUT",
+														headers: $authHeader,
+													}
+												);
+												if (!resp.ok) {
+													switch (resp.status) {
+														case 403:
+															throw new Error(
+																`Someone's privacy settings are preventing you from adding ${post._id} to ${$chat.nickname}.`
+															);
+														case 404:
+															throw new Error(
+																`${post._id} not found.`
+															);
+														case 409:
+															throw new Error(
+																`${post._id} is already a member of ${$chat.nickname}.`
+															);
+														case 429:
+															throw new Error(
+																"Too many requests! Try again later."
+															);
+														default:
+															throw new Error(
+																"Response code is not OK; code is " +
+																	resp.status
+															);
+													}
 												}
-											);
-											if (!resp.ok) {
-												switch (resp.status) {
-													case 403:
-														throw new Error(
-															`Someone's privacy settings are preventing you from adding ${post._id} to ${$chat.nickname}.`
-														);
-													case 404:
-														throw new Error(
-															`${post._id} not found.`
-														);
-													case 409:
-														throw new Error(
-															`${post._id} is already a member of ${$chat.nickname}.`
-														);
-													case 429:
-														throw new Error(
-															"Too many requests! Try again later."
-														);
-													default:
-														throw new Error(
-															"Response code is not OK; code is " +
-																resp.status
-														);
+												if ($params.admin) {
+													$chat = await resp.json();
 												}
+												delete addToChatLoading[post._id];
+											} catch (e) {
+												modals.showModal(BasicModal, {
+													title: `Failed to add ${post._id} to ${$chat.nickname}`,
+													desc: e,
+												});
+												delete addToChatLoading[post._id];
 											}
-											if ($params.admin) {
-												$chat = await resp.json();
-											}
-											delete addToChatLoading[post._id];
-										} catch (e) {
-											modals.showModal(BasicModal, {
-												title: `Failed to add ${post._id} to ${$chat.nickname}`,
-												desc: e,
-											});
-											delete addToChatLoading[post._id];
-										}
-									}}
-								/>
-							</div>
+										}}
+									/>
+								</div>
+							{/if}
+						{:else}
+							<Post
+								{post}
+								{adminView}
+								input={postInput}
+								error={postErrors[post.id]}
+								retryPost={() => {
+									sendPost(post.content);
+									items = items.filter(v => v.id !== post.id);
+								}}
+								removePost={() =>
+									(items = items.filter(v => v.id !== post.id))}
+							/>
+							<br>
 						{/if}
-					{:else}
-						<Post
-							{post}
-							{adminView}
-							input={postInput}
-							error={postErrors[post.id]}
-							retryPost={() => {
-								sendPost(post.content);
-								items = items.filter(v => v.id !== post.id);
-							}}
-							removePost={() =>
-								(items = items.filter(v => v.id !== post.id))}
-						/>
-					{/if}
-				</div>
-			{/each}
-		</svelte:fragment>
-		<slot name="error" slot="error" let:error {error}>
-			<Container>
-				Error loading posts. Please try again.
-				<pre><code>{error}</code></pre>
-			</Container>
-		</slot>
-		<slot name="empty" slot="empty">
-			{#if postOrigin !== "livechat"}
+					</div>
+				{/each}
+			</svelte:fragment>
+			<slot name="error" slot="error" let:error {error}>
 				<Container>
-					{#if $user.name && canPost}
-						No posts here. Check back later or be the first to post!
-					{:else}
-						No posts here. Check back later!
-					{/if}
+					Error loading posts. Please try again.
+					<pre><code>{error}</code></pre>
 				</Container>
-			{/if}
-		</slot>
-	</PagedList>
+			</slot>
+			<slot name="empty" slot="empty">
+				{#if postOrigin !== "livechat"}
+					<Container>
+						{#if $user.name && canPost}
+							No posts here. Check back later or be the first to post!
+						{:else}
+							No posts here. Check back later!
+						{/if}
+					</Container>
+				{/if}
+			</slot>
+		</PagedList>
+	</div>
 </div>
 
 <style>

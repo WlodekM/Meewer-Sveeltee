@@ -101,6 +101,14 @@
 <Container>
 	<h2>Changelog</h2>
 	<Container>
+		<h2>1.69d</h2>
+		<ul>
+			<li>
+				Added support for F client's/BM's reply syntax
+			</li>
+		</ul>
+	</Container>
+	<Container>
 		<h2>1.69c</h2>
 		<ul>
 			<li>
