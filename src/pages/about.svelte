@@ -96,10 +96,26 @@
 			<img class="inline-meowy" src={meowy} height="24" alt="Meowy" /> Original
 			creator of Meowy
 		</Contributor>
+		<Contributor
+			username="trappist-1e"
+			url="https://app.meower.org/about"
+			pfp="https://avatars.githubusercontent.com/u/77336943?s=200&v=4"
+		>
+			<img class="inline-meowy" src={meowy} height="24" alt="Meowy" /> Original
+			creator of Meowy
+		</Contributor>
 	</div>
 </Container>
 <Container>
 	<h2>Changelog</h2>
+	<Container>
+		<h2>1.69.1a</h2>
+		<ul>
+			<li>
+				More about changes
+			</li>
+		</ul>
+	</Container>
 	<Container>
 		<h2>1.69e</h2>
 		<ul>
