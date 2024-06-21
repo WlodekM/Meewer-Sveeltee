@@ -109,48 +109,11 @@
 <Container>
 	<h2>Changelog</h2>
 	<Container>
-		<h2>1.69.1b</h2>
-		<ul>
-			<li>
-				Even ore about changes
-			</li>
-		</ul>
-	</Container>
-	<Container>
-		<h2>1.69.1a</h2>
-		<ul>
-			<li>
-				More about changes
-			</li>
-		</ul>
-	</Container>
-	<Container>
-		<h2>1.69e</h2>
-		<ul>
-			<li>
-				Reverted back to containered posts
-			</li>
-		</ul>
-	</Container>
-	<Container>
-		<h2>1.69d</h2>
+		<h2>1.69.1</h2>
 		<ul>
 			<li>
 				Added support for F client's/BM's reply syntax
 			</li>
-		</ul>
-	</Container>
-	<Container>
-		<h2>1.69c</h2>
-		<ul>
-			<li>
-				Updated about page
-			</li>
-		</ul>
-	</Container>
-	<Container>
-		<h2>1.69b</h2>
-		<ul>
 			<li>
 				Updated about page
 			</li>
