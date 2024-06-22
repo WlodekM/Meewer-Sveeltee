@@ -118,7 +118,10 @@
 				More themes:<br>
 				 - Blurple<br>
 				 - Blurple Dark<br>
-				 - AMOLED Neon
+				 - AMOLED Neon<br>
+				 - Purple Dark (by ij)<br>
+				 - Blue (by Souple)<br>
+				 - Choco Dark
 			</li>
 		</ul>
 	</Container>
