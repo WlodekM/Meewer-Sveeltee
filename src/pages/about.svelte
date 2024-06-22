@@ -115,7 +115,9 @@
 				Added PFP's from f client (and hidden pfps)
 			</li>
 			<li>
-				More themes!
+				More themes:
+				 - Blurple
+				 - Blurple Dark
 			</li>
 		</ul>
 	</Container>
