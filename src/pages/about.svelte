@@ -115,9 +115,10 @@
 				Added PFP's from f client (and hidden pfps)
 			</li>
 			<li>
-				More themes:
-				 - Blurple
-				 - Blurple Dark
+				More themes:<br>
+				 - Blurple<br>
+				 - Blurple Dark<br>
+				 - AMOLED Neon
 			</li>
 		</ul>
 	</Container>

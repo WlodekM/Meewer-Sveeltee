@@ -26,7 +26,10 @@
 	let selections = ["orange", "dark-orange", "blue", "dark-blue",
 		`cb:Blurple;false;{"v":1,"orange":"#6430df","orangeLight":"#8955ff","orangeDark":"#3f0bba","background":"#f2ecf8","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`,
 		`cb:Blurple Dark;true;{"v":1,"orange":"#9466ff","orangeLight":"#b98bff","orangeDark":"#6f41da","background":"#2e2636","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#252525"}`,
+		`cb:AMOLED Neon;true;{"v":1,"orange":"#00bfff","orangeLight":"#33e0ff","orangeDark":"#008cba","background":"#000000","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#00171f"}`
 	];
+	// FORMAT:
+	// cb:{Theme name};{Dark? true/false};{THEME JSON HERE}
 
 	selections.push("custom")
 
@@ -115,7 +118,7 @@
 					>
 				{:else if theme.startsWith("cb:")}
 					<div class="theme-name">{theme.replace("cb:","").split(";")[0]}</div>
-					<ThemePreview theme={stringToTheme(theme.replace("cb:","").split(";")[1])} size={0.35}/>
+					<ThemePreview theme={stringToTheme(theme.replace("cb:","").split(";")[2])} size={0.35}/>
 				{:else}
 					<div class="theme-name">
 						{themeCaps + " (" + darkModeStr + ")"}
@@ -152,10 +155,8 @@
 							let themeData   = theme.replace("cb:","").split(";")[2]
 							let themeString = `custom:${themeData}`
 							applyTheme(stringToTheme(themeData));
-							_user.theme = themeString;
-							user.set(_user);
-							console.log(_user.theme, $user.theme, themeString)
-							clm.updateProfile({theme: themeString, mode: Boolean(theme.replace("cb:","").split(";")[1])});
+							$user.theme = themeString;
+							clm.updateProfile({theme: themeString, mode: !JSON.parse(theme.replace("cb:","").split(";")[1])});
 							modals.closeLastModal();
 						} catch (e) {
 							console.error(`Failed to apply custom theme: ${e}`);
@@ -165,8 +166,8 @@
 						_user.mode = !darkMode;
 						user.set(_user);
 						clm.updateProfile({theme: theme, mode: !darkMode});
-						modals.closeLastModal();
 					}
+					modals.closeLastModal();
 				}}>Save</button
 			>
 		</div>
