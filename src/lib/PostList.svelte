@@ -24,6 +24,7 @@
 	import AccountBannedModal from "./modals/safety/AccountBanned.svelte";
 	import BlockUserModal from "./modals/safety/BlockUser.svelte";
 	import AddImageModal from "./modals/AddImage.svelte";
+	import SendFiles from "./modals/SendFiles.svelte";
 
 	import {
 		relationships,
@@ -509,13 +510,15 @@
 					>Unblock</button
 				>
 			{:else}
+				<!-- yoink (WHY ISNT THIS IN THE develop BRANCH?!?!?/1/1/) -->
 				<button
-					class="upload-image"
-					name="addImage"
-					title="Add an image"
+					class="send-files"
+					title="Send files (disabled until owner figures out how to start uploads server)"
 					on:click|preventDefault={() => {
-						modals.showModal(AddImageModal, {postInput});
-					}}>+</button
+						modals.closeAllModals();
+						modals.showModal(SendFiles, {postOrigin});
+					}}
+					disabled>+</button
 				>
 				<button
 					bind:this={submitBtn}

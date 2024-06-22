@@ -4,7 +4,11 @@
 	import CustomThemeModal from "./CustomTheme.svelte";
 
 	import {user} from "../../stores.js";
-	import {removeTheme, stringToTheme} from "../../CustomTheme.js";
+	import {
+		stringToTheme,
+		removeTheme,
+		applyTheme
+	} from "../../CustomTheme.js";
 	import * as modals from "../../modals.js";
 	import ThemePreview from "../../ThemePreview.svelte";
 	import * as clm from "../../clmanager.js";
@@ -20,7 +24,8 @@
 	);
 
 	let selections = ["orange", "dark-orange", "blue", "dark-blue",
-		`cb:Purple testing theme #01;{"v":1,"orange":"#7739f7","orangeLight":"#9c5eff","orangeDark":"#5214d2","background":"#ffffff","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`
+		`cb:Blurple;{"v":1,"orange":"#6430df","orangeLight":"#8955ff","orangeDark":"#3f0bba","background":"#f2ecf8","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`,
+		`cb:Blurple Dark;{"v":1,"orange":"#9466ff","orangeLight":"#b98bff","orangeDark":"#6f41da","background":"#2e2636","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#252525"}`,
 	];
 
 	selections.push("custom")
@@ -142,11 +147,19 @@
 				on:click={() => {
 					removeTheme();
 					const _user = $user;
-					_user.theme = theme;
-					_user.mode = !darkMode;
-					user.set(_user);
-					clm.updateProfile({theme: theme, mode: !darkMode});
-					modals.closeLastModal();
+					if(theme.startsWith("cb:")) {
+						try {
+							applyTheme(stringToTheme(theme.replace("cb:","").split(";")[1]));
+						} catch (e) {
+							console.error(`Failed to apply custom theme: ${e}`);
+						}
+					} else {
+						_user.theme = theme;
+						_user.mode = !darkMode;
+						user.set(_user);
+						clm.updateProfile({theme: theme, mode: !darkMode});
+						modals.closeLastModal();
+					}
 				}}>Save</button
 			>
 		</div>

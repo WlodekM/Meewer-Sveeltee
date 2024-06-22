@@ -109,6 +109,17 @@
 <Container>
 	<h2>Changelog</h2>
 	<Container>
+		<h2>1.69.2</h2>
+		<ul>
+			<li>
+				Added PFP's from f client (and hidden pfps)
+			</li>
+			<li>
+				More themes!
+			</li>
+		</ul>
+	</Container>
+	<Container>
 		<h2>1.69.1</h2>
 		<ul>
 			<li>
