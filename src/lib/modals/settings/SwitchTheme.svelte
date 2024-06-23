@@ -24,12 +24,15 @@
 	);
 
 	let selections = ["orange", "dark-orange", "blue", "dark-blue",
-		`cb:Blurple;false;{"v":1,"orange":"#6430df","orangeLight":"#8955ff","orangeDark":"#3f0bba","background":"#f2ecf8","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`,
-		`cb:Blurple Dark;true;{"v":1,"orange":"#9466ff","orangeLight":"#b98bff","orangeDark":"#6f41da","background":"#2e2636","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#252525"}`,
+		`cb:Blurple (by noodles);false;{"v":1,"orange":"#6430df","orangeLight":"#8955ff","orangeDark":"#3f0bba","background":"#f2ecf8","foreground":"#000000","foregroundOrange":"#ffffff","tinting":"#252525"}`,
+		`cb:Blurple Dark (by noodles);true;{"v":1,"orange":"#9466ff","orangeLight":"#b98bff","orangeDark":"#6f41da","background":"#2e2636","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#252525"}`,
 		`cb:AMOLED Neon;true;{"v":1,"orange":"#00bfff","orangeLight":"#33e0ff","orangeDark":"#008cba","background":"#000000","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#00171f"}`,
 		`cb:Purple Dark (by ij);true;{"v":1,"orange":"#9e009e","background":"#020617","foreground":"#cbd5e1","foregroundOrange":"#ffffff","roarer_link":"#c400c4","roarer_postStyle":"bordered","roarer_colorScheme":"dark","orangeLight":"#9e009e","orangeDark":"#9e009e","tinting":"#9e009e"}`,
 		`cb:Blue (by Souple);true;{"v":1,"orange":"#373b77","background":"#212454","foreground":"#fefefe","foregroundOrange":"#ffffff","roarer_link":"#aabaf8","roarer_postStyle":"filled","roarer_colorScheme":"dark","orangeLight":"#373b77","orangeDark":"#373b77","tinting":"#373b77"}`,
 		`cb:Choco Dark;true;{"v":1,"orange":"#a37a43","background":"#332b22","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#453827","orangeLight":"#e8b26a","orangeDark":"#5e421c"}`,
+		`cb;Magenta Dark;true;{"v":1,"orange":"#ce00e6","background":"#2e2332","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#3c2646","orangeLight":"#ff26ff","orangeDark":"#9200a0"}`,
+		`cb;Red Dark;true;{"v":1,"orange":"#e60000","background":"#322323","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#472525","orangeLight":"#ff2525","orangeDark":"#9f0000"}`,
+		`cb:AMOLED;true;{"v":1,"orange":"#000000","background":"#000000","foreground":"#ffffff","foregroundOrange":"#ffffff","tinting":"#000000","orangeLight":"#000000","orangeDark":"#000000"}`,
 		`ch:More themes coming soon!;{"canSave":false,"dark":false,"html":"true"};{"v":-1}`
 	];
 	// FORMAT:
