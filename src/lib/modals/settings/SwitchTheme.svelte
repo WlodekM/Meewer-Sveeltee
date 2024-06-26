@@ -161,7 +161,7 @@
 		<div class="modal-buttons">
 			<button on:click={modals.closeLastModal}>Close</button>
 			<button
-				disabled={theme === "custom" || (theme.startsWith("ch:") || (JSON.parse(theme.replace("ch:","").split(";")[1])?.canSave ?? false))}
+				disabled={theme === "custom" || (theme.startsWith("ch:") && (JSON.parse(theme.replace("ch:","").split(";")[1])?.canSave ?? false))}
 				on:click={() => {
 					removeTheme();
 					const _user = $user;
