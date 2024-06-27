@@ -60,7 +60,7 @@
 	class:theme-orange={$user.theme === "orange"}
 	class:theme-blue={$user.theme === "blue"}
 	class:mode-light={!($user.mode === false)}
-	class:mode-dark={$user.mode === false}
+	class:mode-dark={(()=>{console.log("mode", $user.mode);return !($user.mode)})()}
 	class:layout-old={$user.layout === "old"}
 	class:layout-mobile={$mobile}
 	class:input-touch={$touch}

@@ -1,10 +1,10 @@
-/**
- * Returns the "default" profile, used when logged out.
- *
- * @returns {object} The unloaded profile.
- */
+// /**
+//  * Returns the "default" profile, used when logged out.
+//  *
+//  * @returns {object} The unloaded profile.
+//  */
 
-import {systemDarkMode} from "./responsiveness.js";
+// import {systemDarkMode} from "./responsiveness.js";
 
 export default function unloadedProfile() {
 	return {
@@ -13,7 +13,7 @@ export default function unloadedProfile() {
 		permissions: 0,
 		unread_inbox: false,
 		theme: "orange",
-		mode: !systemDarkMode(),
+		mode: false,
 		sfx: true,
 		bgm: false,
 		bgm_song: 2,
